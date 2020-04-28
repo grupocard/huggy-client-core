@@ -31,7 +31,7 @@ namespace Huggy.Client.Api.Models
         public int? DepartmentId { get; set; }
 
         [DataMember(Name = "tabulationId")]
-        public int TabulationId { get; set; }
+        public int? TabulationId { get; set; }
 
         [DataMember(Name = "channels")]
         public IList<Channel> Channels { get; set; }
