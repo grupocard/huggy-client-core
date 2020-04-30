@@ -10,34 +10,34 @@ namespace Huggy.Client.Api.Models
     {
 
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [DataMember(Name = "agentId")]
-        public int? AgentId { get; set; }
+        public long? AgentId { get; set; }
 
         [DataMember(Name = "secondAgentId")]
-        public object SecondAgentId { get; set; }
+        public long? SecondAgentId { get; set; }
 
         [DataMember(Name = "contactId")]
-        public int? ContactId { get; set; }
+        public long? ContactId { get; set; }
 
         [DataMember(Name = "siteCustomerId")]
-        public int? SiteCustomerId { get; set; }
+        public long? SiteCustomerId { get; set; }
 
         [DataMember(Name = "messengerId")]
-        public object MessengerId { get; set; }
+        public long? MessengerId { get; set; }
 
         [DataMember(Name = "departmentId")]
-        public int? DepartmentId { get; set; }
+        public long? DepartmentId { get; set; }
 
         [DataMember(Name = "tabulationId")]
-        public int? TabulationId { get; set; }
+        public long? TabulationId { get; set; }
 
         [DataMember(Name = "channels")]
         public IList<Channel> Channels { get; set; }
 
         [DataMember(Name = "queueNumber")]
-        public object QueueNumber { get; set; }
+        public long? QueueNumber { get; set; }
 
         [DataMember(Name = "createdAt")]
         public string CreatedAt { get; set; }

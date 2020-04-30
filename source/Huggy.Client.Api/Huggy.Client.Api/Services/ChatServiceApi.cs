@@ -45,7 +45,7 @@ namespace Huggy.Client.Api.Services
         /// <returns></returns>
         public async Task<List<Chat>> ListAllChats(string token)
         {
-            if (token.Length < 10) throw new ArgumentException("O parametro token é invalido!");
+            if (token.Length < 30) throw new ArgumentException("O parametro token é invalido!");
 
             int result, page = 0;
             List<Chat> list = new List<Chat>();
