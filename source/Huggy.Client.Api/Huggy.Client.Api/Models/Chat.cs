@@ -50,5 +50,47 @@ namespace Huggy.Client.Api.Models
 
         [DataMember(Name = "closedAt")]
         public string ClosedAt { get; set; }
+
+
+        public DateTime? GetCreatedAt()
+        {
+            if (CreatedAt != null)
+            {
+                return Convert.ToDateTime(CreatedAt);
+            }
+
+            return null;
+        }
+
+        public DateTime? GetAttendedAt()
+        {
+            if (AttendedAt != null)
+            {
+                return Convert.ToDateTime(AttendedAt);
+            }
+
+            return null;
+        }
+
+        public DateTime? GetClosedAt()
+        {
+            if (ClosedAt != null)
+            {
+                return Convert.ToDateTime(ClosedAt);
+            }
+
+            return null;
+        }
+
+        public DateTime? GetUpdatedAt()
+        {
+            if (UpdatedAt != null)
+            {
+                return Convert.ToDateTime(UpdatedAt);
+            }
+
+            return null;
+        }
+
     }
 }

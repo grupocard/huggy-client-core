@@ -44,7 +44,7 @@ namespace Huggy.Client.Api.Services
         /// <param name="token">token para autenticação na api</param>
         /// <param name="page">pagina a qual se deseja começar a busca, padrão = 0</param>
         /// <returns>Uma lista do tipo <seealso cref="List{Chat}"/>  </returns>
-        public async Task<List<Chat>> ListAllChats(string token, int page = 0)
+        public async Task<List<Chat>> ListAllChats(string token, int page = 0, bool allPages = true)
         {
             if (token.Length < 30) throw new ArgumentException("O parametro token é invalido!");
 
@@ -70,7 +70,7 @@ namespace Huggy.Client.Api.Services
                     result = myList.Count;
                     page++;
 
-                } while (result >= 20);
+                } while (result >= 20 && allPages);
 
                 return list;
             }

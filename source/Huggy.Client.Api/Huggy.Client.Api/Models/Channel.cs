@@ -13,7 +13,7 @@ namespace Huggy.Client.Api.Models
         public string Uuid { get; set; }
 
         [DataMember(Name = "id")]
-        public object Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
