@@ -13,7 +13,7 @@ namespace Huggy.Client.Api.Models
         public string CodigoSgvCustomer { get; set; }
 
         [DataMember(Name = "codigo_erp_customer")]
-        public object CodigoErpCustomer { get; set; }
+        public string CodigoErpCustomer { get; set; }
 
         [DataMember(Name = "cpf_customer")]
         public string CpfCustomer { get; set; }

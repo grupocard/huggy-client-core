@@ -12,19 +12,19 @@ namespace Huggy.Client.Api.Models
         {
 
             [DataMember(Name = "id")]
-            public int Id { get; set; }
+            public long Id { get; set; }
 
             [DataMember(Name = "name")]
             public string Name { get; set; }
 
             [DataMember(Name = "email")]
-            public object Email { get; set; }
+            public string Email { get; set; }
 
             [DataMember(Name = "mobile")]
             public string Mobile { get; set; }
 
             [DataMember(Name = "phone")]
-            public object Phone { get; set; }
+            public string Phone { get; set; }
 
             [DataMember(Name = "customFields")]
             public ContactCustomField CustomFields { get; set; }
