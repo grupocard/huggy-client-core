@@ -8,7 +8,6 @@ namespace Huggy.Client.Api.Models
     [DataContract]
     public class ContactCustomField
     {
-
         [DataMember(Name = "codigo_sgv_customer")]
         public string CodigoSgvCustomer { get; set; }
 

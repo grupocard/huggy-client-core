@@ -8,7 +8,6 @@ namespace Huggy.Client.Api.Models
     [DataContract]
     public class Chat
     {
-
         [DataMember(Name = "id")]
         public long Id { get; set; }
 
