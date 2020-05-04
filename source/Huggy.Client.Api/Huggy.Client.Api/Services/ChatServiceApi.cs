@@ -43,6 +43,7 @@ namespace Huggy.Client.Api.Services
         /// </summary>
         /// <param name="token">token para autenticação na api</param>
         /// <param name="page">pagina a qual se deseja começar a busca, padrão = 0</param>
+        /// <param name="allPages">se falso retorna apenas a pagina solicitada</param>
         /// <returns>Uma lista do tipo <seealso cref="List{Chat}"/>  </returns>
         public async Task<List<Chat>> ListAllChats(string token, int page = 0, bool allPages = true)
         {
@@ -74,19 +75,48 @@ namespace Huggy.Client.Api.Services
 
                 return list;
             }
-            catch(AggregateException ag)
+            catch (AggregateException ag)
             {
-                Console.WriteLine($"Erro de agregação no objeto "+ ag.Message);
+                Console.WriteLine($"Erro de agregação no objeto " + ag.Message);
                 throw ag;
             }
             catch (ArgumentNullException a)
             {
-                Console.WriteLine("Falta um argumento para processar a solicitação");
+                Console.WriteLine("Falta um argumento para processar a solicitação. " + a.Message);
                 throw a;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Um erro ocorreu! " + e.Message);
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Busca um chat pelo seu identificador unico
+        /// </summary>
+        /// <param name="token">token para autenticação na api</param>
+        /// <param name="id">idetnificador unico do chat no sistema</param>
+        /// <returns>retorna um objeto do tipo <see cref="Chat"/></returns>
+        public async Task<Chat> GetChat(string token, long id)
+        {
+            if (token.Length < 30 || id == 0) throw new ArgumentException("O parametro é invalido!");
+
+            try
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                var serialiazer = new DataContractJsonSerializer(typeof(Chat));
+                var streamTask = await client.GetStreamAsync($"https://api.huggy.io/v2/chats/{id}");
+
+                var chat = serialiazer.ReadObject(streamTask) as Chat;
+
+                return chat;
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }
