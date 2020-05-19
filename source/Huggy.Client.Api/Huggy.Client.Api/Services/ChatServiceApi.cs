@@ -62,10 +62,10 @@ namespace Huggy.Client.Api.Services
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-                    var serialiazer = new DataContractJsonSerializer(typeof(List<Chat>));
+                    var serializer = new DataContractJsonSerializer(typeof(List<Chat>));
                     var streamTask = await client.GetStreamAsync($"https://api.huggy.io/v2/chats?page={page}");
 
-                    var myList = serialiazer.ReadObject(streamTask) as List<Chat>;
+                    var myList = serializer.ReadObject(streamTask) as List<Chat>;
                     list.AddRange(myList);
 
                     result = myList.Count;
@@ -108,10 +108,10 @@ namespace Huggy.Client.Api.Services
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-                var serialiazer = new DataContractJsonSerializer(typeof(Chat));
+                var serializer = new DataContractJsonSerializer(typeof(Chat));
                 var streamTask = await client.GetStreamAsync($"https://api.huggy.io/v2/chats/{id}");
 
-                var chat = serialiazer.ReadObject(streamTask) as Chat;
+                var chat = serializer.ReadObject(streamTask) as Chat;
 
                 return chat;
             }
