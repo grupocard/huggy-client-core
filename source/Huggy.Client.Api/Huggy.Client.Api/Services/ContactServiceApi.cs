@@ -62,5 +62,30 @@ namespace Huggy.Client.Api.Services
             }
         }
 
+
+        public async Task<Contact> GetContact(string token, long id, string uri = "https://api.huggy.io/v2")
+        {
+            if (token.Length < 30 || id == 0) throw new ArgumentException("O parametro é invalido!");
+
+            try
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                var serializer = new DataContractJsonSerializer(typeof(Contact));
+                var streamTask = await client.GetStreamAsync($"{uri = -}/contacts/{id}");
+
+                var contact = serializer.ReadObject(streamTask) as Contact;
+
+                return contact;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Um erro ocorreu! " + e.Message);
+                throw e;
+            }
+        }
+
     }
 }
