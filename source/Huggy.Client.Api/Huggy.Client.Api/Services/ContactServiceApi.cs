@@ -87,5 +87,28 @@ namespace Huggy.Client.Api.Services
             }
         }
 
+
+        public async Task<HttpResponseMessage> DeleteContact(string token, long id, string uri = "https://api.huggy.io/v2")
+        {
+            if (token.Length < 30 || id == 0) throw new ArgumentException("O parametro é invalido!");
+
+            try
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                var serializer = new DataContractJsonSerializer(typeof(Contact));
+                var streamTask = await client.DeleteAsync($"{uri}/contacts/{id}");
+
+                return streamTask;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Um erro ocorreu! " + e.Message);
+                throw e;
+            }
+        }
+
     }
 }
