@@ -12,7 +12,7 @@ namespace Huggy.Client.Api.Services
     public class ChatServiceApi
     {
 
-        private Uri baseAddress = new Uri("https://api.huggy.io/v2/");
+        private Uri baseAddress = new Uri("https://api.huggy.io/v2");
         private static readonly HttpClient client = new HttpClient();
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace Huggy.Client.Api.Services
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<string> ListAllChatsJson(string token)
+        public async Task<string> ListAllChatsJson(string token, string uri = "https://api.huggy.io/v2")
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Huggy.Client.Api.Services
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-                var stringTask = await client.GetStringAsync("https://api.huggy.io/v2/chats");
+                var stringTask = await client.GetStringAsync($"{uri}/chats");
 
                 return stringTask;
             }
@@ -45,7 +45,7 @@ namespace Huggy.Client.Api.Services
         /// <param name="page">pagina a qual se deseja começar a busca, padrão = 0</param>
         /// <param name="allPages">se falso retorna apenas a pagina solicitada</param>
         /// <returns>Uma lista do tipo <seealso cref="List{Chat}"/>  </returns>
-        public async Task<List<Chat>> ListAllChats(string token, int page = 0, bool allPages = true)
+        public async Task<List<Chat>> ListAllChats(string token, int page = 0, bool allPages = true, string uri = "https://api.huggy.io/v2")
         {
             if (token.Length < 30) throw new ArgumentException("O parametro token é invalido!");
 
@@ -63,7 +63,7 @@ namespace Huggy.Client.Api.Services
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
                     var serializer = new DataContractJsonSerializer(typeof(List<Chat>));
-                    var streamTask = await client.GetStreamAsync($"https://api.huggy.io/v2/chats?page={page}");
+                    var streamTask = await client.GetStreamAsync($"{uri}/chats?page={page}");
 
                     var myList = serializer.ReadObject(streamTask) as List<Chat>;
                     list.AddRange(myList);
@@ -98,7 +98,7 @@ namespace Huggy.Client.Api.Services
         /// <param name="token">token para autenticação na api</param>
         /// <param name="id">idetnificador unico do chat no sistema</param>
         /// <returns>retorna um objeto do tipo <see cref="Chat"/></returns>
-        public async Task<Chat> GetChat(string token, long id)
+        public async Task<Chat> GetChat(string token, long id, string uri = "https://api.huggy.io/v2")
         {
             if (token.Length < 30 || id == 0) throw new ArgumentException("O parametro é invalido!");
 
@@ -109,7 +109,7 @@ namespace Huggy.Client.Api.Services
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
                 var serializer = new DataContractJsonSerializer(typeof(Chat));
-                var streamTask = await client.GetStreamAsync($"https://api.huggy.io/v2/chats/{id}");
+                var streamTask = await client.GetStreamAsync($"{uri=-}/chats/{id}");
 
                 var chat = serializer.ReadObject(streamTask) as Chat;
 
